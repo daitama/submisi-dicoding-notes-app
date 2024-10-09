@@ -3,6 +3,9 @@ export default class NotesAPI {
 
     }
     static saveNotes(noteToSave){
+
+    }
+    static deleteNotes(id) {
         
     }
 }
