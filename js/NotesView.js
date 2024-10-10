@@ -41,7 +41,7 @@ export default class NotesView {
     const MAX_BODY_LENGTH = 60;
 
     return `
-            <div class="notes__list-item " data-note-id="${id}">
+            <div class="notes__list-item" data-note-id="${id}">
                 <div class="notes__small-title">${title}</div>
                 <div class="notes__small-body">
                 ${body.substring(0, MAX_BODY_LENGTH)}
@@ -87,7 +87,7 @@ export default class NotesView {
     this.root.querySelector(".notes__body").value = note.body;
 
     this.root.querySelectorAll(".notes__list-item").forEach(noteListItem => {
-        noteListItem.classList.remove("note__list-item-selected");
+        noteListItem.classList.remove("notes__list-item--selected");
     });
 
     this.root.querySelector(`.notes__list-item[data-note-id="${note.id}"]`).classList.add("notes__list-item--selected");
