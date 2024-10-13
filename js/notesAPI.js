@@ -1,8 +1,8 @@
-import { notesData } from "./notes.js";
+import { notesData } from "../data/notes.js";
 
 export default class NotesAPI {
     static getAllNotes() {
-        const notes = JSON.parse(localStorage.getItem("notesapp-notes") || JSON.stringify(notesData));
+        const notes = JSON.parse(localStorage.getItem("notesapp-notes")) || notesData;
         console.log(notes);
 
         return notes.sort((a, b) => {
