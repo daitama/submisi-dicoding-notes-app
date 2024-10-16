@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/styled.css">
     <title>Notes App</title>
 </head>
 <body>
@@ -12,7 +12,10 @@
             <button class="notes__add" type="button">Add Note</button>
             <div class="notes__list">
                 <div class="notes__list-item notes__list-item--selected">
-                    <div class="notes__small-title">Lecture Notes</div>
+                    <div class="notes__small_title-container">
+                        <div class="notes__small-title">Lecture Notes</div>
+                        <button class="notes__delete" type="button">X</button>
+                    </div>
                     <div class="notes__small-body">I learnt nothing today.</div>
                     <div class="notes__small-updated">Thursday 3:30pm</div>
                 </div>
