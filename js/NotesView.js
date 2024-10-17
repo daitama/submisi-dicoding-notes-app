@@ -39,10 +39,17 @@ export default class NotesView {
 
   #createListItemHTML(id, title, body, updated) {
     const MAX_BODY_LENGTH = 60;
+    const MAX_TITLE_LENGTH = 25;
 
     return `
             <div class="notes__list-item" data-note-id="${id}">
-                <div class="notes__small-title">${title}</div>
+                <div class="notes__small_title-container">
+                  <div class="notes__small-title">
+                  ${title.substring(0, MAX_TITLE_LENGTH)}
+                  ${title.length > MAX_TITLE_LENGTH ? "..." : ""}
+                  </div>
+                  <button class="notes__delete" type="button">X</button>
+                </div>
                 <div class="notes__small-body">
                 ${body.substring(0, MAX_BODY_LENGTH)}
                 ${body.length > MAX_BODY_LENGTH ? "..." : ""}
@@ -72,25 +79,32 @@ export default class NotesView {
             this.onNoteSelect(noteListItem.dataset.noteId);
         });
 
-        noteListItem.addEventListener("dblclick", () => {
-            const doDelete = confirm("Are You Sure you want to delete this note?");
+        noteListItem.querySelector(".notes__delete").addEventListener("click", (event) => {
+          event.stopPropagation();
+          const doDelete = confirm("Are You Sure you want to delete this note?");
 
-            if(doDelete) {
-                this.onNoteDelete(noteListItem.dataset.noteId);
-            }
-        })
+          if(doDelete) {
+              this.onNoteDelete(noteListItem.dataset.noteId);
+          }
+        });
     });
   }
 
   updateActiveNote(note){
     this.root.querySelector(".notes__title").value = note.title;
     this.root.querySelector(".notes__body").value = note.body;
+    this.activeNote = this.root.querySelector(`.notes__list-item[data-note-id="${note.id}"]`);
 
     this.root.querySelectorAll(".notes__list-item").forEach(noteListItem => {
         noteListItem.classList.remove("notes__list-item--selected");
     });
 
-    this.root.querySelector(`.notes__list-item[data-note-id="${note.id}"]`).classList.add("notes__list-item--selected");
+    this.root.querySelectorAll(".notes__delete").forEach(deleteButton => {
+        deleteButton.style.visibility = "hidden";
+    });
+
+    this.activeNote.classList.add("notes__list-item--selected");
+    this.activeNote.querySelector(".notes__delete").style.visibility = "visible";
   }
 
   updateNotePreviewVisibility(visible){

@@ -81,6 +81,7 @@ body {
     cursor: pointer;
     font-weight: bold;
     color: white;
+    visibility: visible;
 }
 
 .notes__small-title {
