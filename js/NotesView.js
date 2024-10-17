@@ -1,3 +1,5 @@
+import "../customElement/noteListItem.js"
+
 export default class NotesView {
   constructor(root, { onNoteSelect, onNoteAdd, onNoteEdit, onNoteDelete } = {}) {
     this.root = root;
@@ -63,32 +65,31 @@ export default class NotesView {
 
   updateNoteList(notes) {
     const notesListContainer = this.root.querySelector(".notes__list");
-
-    //Empty List
+  
+    // Empty the list container
     notesListContainer.innerHTML = "";
-
-    for(const note of notes) {
-        const html = this.#createListItemHTML(note.id, note.title, note.body, new Date(note.updated));
-
-        notesListContainer.insertAdjacentHTML("beforeend", html);
+  
+    for (const note of notes) {
+      // Create a new <note-list-item> element
+      const noteItem = document.createElement('note-list-item');
+      
+      // Set the note data for the component
+      noteItem.setNoteData(note.id, note.title, note.body, new Date(note.updated));
+  
+      // Listen for custom events from the note item
+      noteItem.addEventListener('select-note', (e) => {
+        this.onNoteSelect(e.detail);
+      });
+  
+      noteItem.addEventListener('delete-note', (e) => {
+          this.onNoteDelete(e.detail);
+      });
+  
+      // Append the component to the notes list container
+      notesListContainer.appendChild(noteItem);
     }
-
-    //Add Select/delete event for each list item
-    notesListContainer.querySelectorAll(".notes__list-item").forEach(noteListItem => {
-        noteListItem.addEventListener("click", () => {
-            this.onNoteSelect(noteListItem.dataset.noteId);
-        });
-
-        noteListItem.querySelector(".notes__delete").addEventListener("click", (event) => {
-          event.stopPropagation();
-          const doDelete = confirm("Are You Sure you want to delete this note?");
-
-          if(doDelete) {
-              this.onNoteDelete(noteListItem.dataset.noteId);
-          }
-        });
-    });
   }
+  
 
   updateActiveNote(note){
     this.root.querySelector(".notes__title").value = note.title;
