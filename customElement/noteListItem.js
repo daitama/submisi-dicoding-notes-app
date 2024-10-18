@@ -37,4 +37,35 @@ class NoteListItem extends HTMLElement {
   }
 }
 
+class NoteBar extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = `
+      <link rel="stylesheet" href="../css/styled.css">
+        <input type="text" class="notes__title" placeholder="New Note...">
+        <textarea name="notes-body" id="" class="notes__body">Take Note...</textarea>
+      `;
+  }
+
+  connectedCallback() {
+  }
+}
+
+class AddButton extends HTMLElement {
+  constructor() {
+    super();
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.innerHTML = `
+      <link rel="stylesheet" href="../css/styled.css">
+        <button class="notes__add" type="button">Add Note</button>
+      `;
+  }
+
+  connectedCallback() {
+  }
+}
+
+customElements.define("add-btn", AddButton);
+customElements.define("note-bar", NoteBar);
 customElements.define("note-list-item", NoteListItem);

@@ -9,18 +9,23 @@ export default class NotesView {
     this.onNoteDelete = onNoteDelete;
     this.root.innerHTML = `
         <div class="notes__sidebar">
-        <button class="notes__add" type="button">Add Note</button>
+        <add-btn></add-btn>
         <div class="notes__list"></div>
     </div>
     <div class="notes__preview">
-        <input type="text" class="notes__title" placeholder="New Note...">
-        <textarea name="notes-body" id="" class="notes__body">Take Note...</textarea>
+      <note-bar style ="  
+              display: flex;
+              flex-direction: column;
+              padding: 2em 3em;
+              flex-grow: 1;">
+      </note-bar>
     </div>
         `;
 
-    const btnAddNote = this.root.querySelector(".notes__add");
-    const inpTitle = this.root.querySelector(".notes__title");
-    const inpBody = this.root.querySelector(".notes__body");
+    const noteBar = this.root.querySelector("note-bar");
+    const btnAddNote = this.root.querySelector("add-btn").shadowRoot.querySelector(".notes__add");
+    const inpTitle = noteBar.shadowRoot.querySelector(".notes__title");
+    const inpBody = noteBar.shadowRoot.querySelector(".notes__body");
 
     btnAddNote.addEventListener("click", () => {
       this.onNoteAdd();
@@ -92,20 +97,20 @@ export default class NotesView {
   
 
   updateActiveNote(note){
-    this.root.querySelector(".notes__title").value = note.title;
-    this.root.querySelector(".notes__body").value = note.body;
-    this.activeNote = this.root.querySelector(`.notes__list-item[data-note-id="${note.id}"]`);
+    this.root.querySelector("note-bar").shadowRoot.querySelector(".notes__title").value = note.title;
+    this.root.querySelector("note-bar").shadowRoot.querySelector(".notes__body").value = note.body;
+    this.activeNote = this.root.querySelector(`note-list-item[data-note-id="${note.id}"]`);
 
-    this.root.querySelectorAll(".notes__list-item").forEach(noteListItem => {
-        noteListItem.classList.remove("notes__list-item--selected");
+    this.root.querySelectorAll("note-list-item").forEach(noteListItem => {
+      noteListItem.shadowRoot.querySelector(".notes__list-item").classList.remove("notes__list-item--selected");
+      noteListItem.shadowRoot.querySelector(".notes__delete").style.visibility = "hidden";
     });
 
-    this.root.querySelectorAll(".notes__delete").forEach(deleteButton => {
-        deleteButton.style.visibility = "hidden";
-    });
+    // Mark the active note as selected
+    this.activeNote.shadowRoot.querySelector(".notes__list-item").classList.add("notes__list-item--selected");
 
-    this.activeNote.classList.add("notes__list-item--selected");
-    this.activeNote.querySelector(".notes__delete").style.visibility = "visible";
+    // Show the delete button for the active note
+    this.activeNote.shadowRoot.querySelector(".notes__delete").style.visibility = "visible";
   }
 
   updateNotePreviewVisibility(visible){
