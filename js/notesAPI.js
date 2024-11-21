@@ -1,5 +1,7 @@
 import { notesData } from "../data/notes.js";
 
+const baseURL = 'https://notes-api.dicoding.dev/v2';
+
 export default class NotesAPI {
     static getAllNotes() {
         const notes = JSON.parse(localStorage.getItem("notesapp-notes")) || notesData;
