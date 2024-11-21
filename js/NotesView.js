@@ -10,6 +10,9 @@ export default class NotesView {
     this.root.innerHTML = `
         <div class="notes__sidebar">
         <add-btn></add-btn>
+        <div id="loading" style ="display: none;">
+          Loading...
+        </div>
         <div class="notes__list"></div>
     </div>
     <div class="notes__preview">

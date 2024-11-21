@@ -4,6 +4,8 @@ const baseURL = 'https://notes-api.dicoding.dev/v2';
 
 export default class NotesAPI {
     static async getAllNotes() {
+        //Show Loading
+        document.getElementById("loading").style.display = "block";
         try{
             const response = await fetch(`${baseURL}/notes`);
 
@@ -20,13 +22,17 @@ export default class NotesAPI {
             const notes = responseJson.data;
             console.log(notes);
 
-
+            //Hide Loading
+            document.getElementById("loading").style.display = "none";
             return notes.sort((a, b) => {
                 return new Date(a.createdAt) > new Date(b.createdAt) ? -1 : 1;
             });
         }
         catch(error){
             console.error(error);
+
+            //Hide Loading
+            document.getElementById("loading").style.display = "none";
             return [];
         }
 
