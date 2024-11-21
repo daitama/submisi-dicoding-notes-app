@@ -79,7 +79,7 @@ export default class NotesView {
       const noteItem = document.createElement('note-list-item');
       
       // Set the note data for the component
-      noteItem.setNoteData(note.id, note.title, note.body, new Date(note.updated));
+      noteItem.setNoteData(note.id, note.title, note.body, new Date(note.createdAt));
   
       // Listen for custom events from the note item
       noteItem.addEventListener('select-note', (e) => {

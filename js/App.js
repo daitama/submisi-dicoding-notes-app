@@ -10,8 +10,8 @@ export default class App {
         this.#refreshNotes();
     }
 
-    #refreshNotes() {
-        const notes = NotesAPI.getAllNotes();
+    async #refreshNotes() {
+        const notes = await NotesAPI.getAllNotes();
 
         this.#setNotes(notes);
 
@@ -38,17 +38,17 @@ export default class App {
                 const selectedNote = this.notes.find(note => note.id == id);
                 this.#setActiveNote(selectedNote);
             },
-            onNoteAdd: ()=>{
+            onNoteAdd: async ()=>{
                 console.log("Let's Create some Note!");
                 const newNotes = {
                     title: "New Note",
                     body: "Take Note..."
                 };
-                NotesAPI.saveNotes(newNotes);
+                await NotesAPI.saveNotes(newNotes);
                 this.#refreshNotes();
             },
-            onNoteEdit:(newTitle, newBody) =>{
-                NotesAPI.saveNotes({
+            onNoteEdit: async (newTitle, newBody) =>{
+                await NotesAPI.saveNotes({
                     id: this.activeNote.id,
                     title: newTitle,
                     body: newBody
@@ -56,8 +56,8 @@ export default class App {
 
                 this.#refreshNotes();
             },
-            onNoteDelete:(id) => {
-                NotesAPI.deleteNotes(id);
+            onNoteDelete: async (id) => {
+                await NotesAPI.deleteNotes(id);
                 this.#refreshNotes();
             }
         };
