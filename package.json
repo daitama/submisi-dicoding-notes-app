@@ -1,0 +1,32 @@
+{
+  "name": "submisi-dicoding-notes-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build": "webpack",
+    "start-dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daitama/submisi-dicoding-notes-app.git"
+  },
+  "author": "dandy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daitama/submisi-dicoding-notes-app/issues"
+  },
+  "homepage": "https://github.com/daitama/submisi-dicoding-notes-app#readme",
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "babel-loader": "^9.2.1",
+    "bable-loader": "^0.0.1-security",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.3",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
+  }
+}

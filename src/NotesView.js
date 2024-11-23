@@ -1,4 +1,4 @@
-import "../customElement/noteListItem.js"
+import "./customElement/noteListItem.js"
 
 export default class NotesView {
   constructor(root, { onNoteSelect, onNoteAdd, onNoteEdit, onNoteDelete } = {}) {
